@@ -24,12 +24,13 @@ def main():
     atom_shell = os.path.join(SOURCE_ROOT, 'out', config,
                               '{0}.app'.format(PRODUCT_NAME), 'Contents',
                               'MacOS', PRODUCT_NAME)
-  elif sys.platform == 'win32':
-    atom_shell = os.path.join(SOURCE_ROOT, 'out', config,
-                              '{0}.exe'.format(PROJECT_NAME))
+  elif sys.platform == 'win32' or sys.platform == 'cygwin':
+    atom_shell = os.path.join(SOURCE_ROOT, 'node_modules', '.bin',
+                              '{0}.cmd'.format(PROJECT_NAME))
   else:
     atom_shell = os.path.join(SOURCE_ROOT, 'out', config, PROJECT_NAME)
 
+  print atom_shell
   subprocess.check_call([atom_shell, 'spec'] + sys.argv[1:])
 
 
